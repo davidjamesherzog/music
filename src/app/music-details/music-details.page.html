@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ info.artistName }} - {{ info.collectionName }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="music-details">
+
+    <ion-card>
+  
+      <img *ngIf="info.artworkUrl100" [src]="info.artworkUrl100"/>
+  
+      <ion-card-content>
+        <h2 class="card-title">
+          {{ info.artistName }}
+        </h2>
+        <p>
+          Title: {{ info.collectionName}}
+        </p>
+        <p>
+          Year: {{ info.releaseDate | date:"yyyy" }}
+        </p>
+        <p>
+          Genre: {{ info.primaryGenreName}}
+        </p>
+        <p>
+          Tracks: {{ info.trackCount }}
+        </p>
+      </ion-card-content>
+  
+      <ion-list>
+        <ion-item lines="none" *ngFor="let song of songs">
+          <ion-badge slot="start">{{ song.trackNumber }}</ion-badge><p>{{ song.trackName }}</p>
+        </ion-item>
+      </ion-list>
+  
+    </ion-card>
+  
+  </ion-content>

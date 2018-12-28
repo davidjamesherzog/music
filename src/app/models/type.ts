@@ -1,0 +1,36 @@
+export class Type {
+  wrapperType: string;
+  kind: string;
+  collectionType: string;
+  artistId: number;
+  collectionId: number;
+  trackId: number;
+  amgArtistId: number;
+  artistName: string;
+  collectionName: string;
+  trackName: string;
+  collectionCensorName: string;
+  trackCensorName: string;
+  artistViewUrl: string;
+  collectionViewUrl: string;
+  trackViewUrl: string;
+  previewUrl: string;
+  artworkUrl30: string;
+  artworkUrl60: string;
+  artworkUrl100: string;
+  collectionPrice: number;
+  trackPrice: number;
+  collectionExplicitness: string;
+  trackExplicitness: string;
+  discCount: number;
+  discNumber: number;
+  trackCount: number;
+  trackNumber: number;
+  trackTimeMillis: number;
+  copyright: string;
+  country: string;
+  currency: string;
+  releaseDate: string;
+  primaryGenreName: string;
+  radioStationUrl: string;
+}
