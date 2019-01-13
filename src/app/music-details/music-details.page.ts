@@ -18,7 +18,6 @@ export class MusicDetailsPage implements OnInit {
   album$: Observable<Album>;
   
   constructor(private route: ActivatedRoute, private store: Store<AppState>) {
-    //this.info = new Type();
     this.album$ = this.store.select(getAlbum);
   }
 

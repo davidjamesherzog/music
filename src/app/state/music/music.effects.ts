@@ -13,7 +13,6 @@ import { AlbumDetails } from 'src/app/models/album.details';
 export class MusicEffects {
 
   @Effect() getAllAlbums$: Observable<Action> = this.actions$
-    //.ofType(MusicActions.GET_ALL_ALBUMS) 
     .pipe(
       ofType(MusicActions.GET_ALL_ALBUMS),
       debounceTime(300),

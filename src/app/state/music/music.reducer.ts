@@ -1,7 +1,7 @@
 import * as fromAlbum from "./music.actions";
 import { MusicState } from './music.state';
 import { AppState } from '../app.state';
-import { Album } from "src/app/models/album";
+import { Album } from 'src/app/models/album';
 
 export const initialState: MusicState = {
   albums: [],

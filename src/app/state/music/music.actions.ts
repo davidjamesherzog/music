@@ -1,7 +1,6 @@
-import { Action } from "@ngrx/store";
-import { Type } from "../../models/type";
-import { AlbumList } from "src/app/models/album.list";
-import { AlbumDetails } from "src/app/models/album.details";
+import { Action } from '@ngrx/store';
+import { AlbumList } from 'src/app/models/album.list';
+import { AlbumDetails } from 'src/app/models/album.details';
 
 export const GET_ALL_ALBUMS = 'Get All Albums';
 export const GET_ALL_ALBUMS_SUCCESS = 'Get All Albums Success';

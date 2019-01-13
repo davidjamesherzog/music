@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Store } from "@ngrx/store";
+import { Store } from '@ngrx/store';
 import { AppState } from '../state/app.state';
 import * as fromAlbum from '../state/music/music.actions';
 import { getAllAlbums } from '../state/music/music.reducer';
