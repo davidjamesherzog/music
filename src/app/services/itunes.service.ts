@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import {Jsonp} from '@angular/http';
-import { map } from 'rxjs/operators';
-import {Type} from '../models/type';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AlbumList } from '../models/album.list';
+import { AlbumDetails } from '../models/album.details';
 
 @Injectable({
   providedIn: 'root'
@@ -12,42 +12,18 @@ export class ITunesService {
   albums: any = null;
   album: any = null;
 
-  constructor(public http: Http, public jsonp: Jsonp) {}
+  constructor(private httpClient: HttpClient) {}
 
-  getAlbums(search: string) {
+  getAlbums(search: string): Observable<AlbumList> {
+    const url: string = `https://itunes.apple.com/search?term=${search}&entity=album`;
 
-    const url: string = `https://itunes.apple.com/search?term=${search}&entity=album&callback=JSONP_CALLBACK`;
-
-    // don't have the users yet
-    return new Promise(resolve => {
-      // We're using Angular Http provider to request the users,
-      // then on the response it'll map the JSON data to a parsed JS object.
-      // Next we process the users and resolve the promise with the new data.
-      this.jsonp.get(url)
-        .pipe(map(res => <Array<Type>>(res.json())))
-        .subscribe(albums => {
-          this.albums = albums;
-          resolve(this.albums);
-        });
-    });
+    return this.httpClient.jsonp<AlbumList>(url, 'callback');
   }
 
-  getAlbum(id: number) {
+  getAlbum(id: number): Observable<AlbumDetails> {
+    const url: string = `https://itunes.apple.com/lookup?id=${id}&entity=song`;
 
-    const url: string = `https://itunes.apple.com/lookup?id=${id}&entity=song&callback=JSONP_CALLBACK`;
-
-    // don't have the users yet
-    return new Promise(resolve => {
-      // We're using Angular Http provider to request the users,
-      // then on the response it'll map the JSON data to a parsed JS object.
-      // Next we process the users and resolve the promise with the new data.
-      this.jsonp.get(url)
-        .pipe(map(res => <Array<Type>>(res.json())))
-        .subscribe(album => {
-          this.album = album;
-          resolve(this.album);
-        });
-    });
+    return this.httpClient.jsonp<AlbumDetails>(url, 'callback');
   }
 
 }

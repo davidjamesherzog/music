@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {ITunesService} from '../services/itunes.service';
-import {Type} from '../models/type';
+import { Observable } from 'rxjs';
+import { Store } from "@ngrx/store";
+import { AppState } from '../state/app.state';
+import * as fromAlbum from '../state/music/music.actions';
+import { getAllAlbums } from '../state/music/music.reducer';
+import { Type } from '../models/type';
 
 @Component({
   selector: 'app-music',
@@ -10,11 +14,14 @@ import {Type} from '../models/type';
 })
 export class MusicPage implements OnInit {
 
-  albums: Type[];
-
-  constructor(private router: Router, private iTunes: ITunesService) { }
+  albums$: Observable<Array<Type>>;
+  
+  constructor(private router: Router, private store: Store<AppState>) {
+    this.albums$ = this.store.select(getAllAlbums);
+  }
 
   ngOnInit() {
+    
   }
 
   // Navigate to album details page with the id as a parameter
@@ -26,20 +33,12 @@ export class MusicPage implements OnInit {
   // Handle input event from search bar
   search(searchTerm) {
     let term = searchTerm.target.value;
-    //console.log(`term: ${term}`);
-
+    
     // We will only perform the search if we have 3 or more characters
     if (term === undefined || term.trim() == '' || term.trim().length < 3) {
-      this.albums = [];
+      //this.albums$ = null;
     } else {
-
-      let albumsSuccess = albums => {
-        this.albums = albums.results;
-      };
-
-      this.iTunes
-        .getAlbums(term)
-        .then(albumsSuccess);
+      this.store.dispatch(new fromAlbum.GetAllAlbums(term));
     }
   }
 
