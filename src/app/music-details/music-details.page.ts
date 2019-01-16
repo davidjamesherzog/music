@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '../state/app.state';
-import * as fromAlbum from '../state/music/music.actions';
+import * as MusicActions from '../state/music/music.actions';
 import { Observable } from 'rxjs';
 import { Album } from '../models/album';
 import { getAlbum } from '../state/music/music.reducer';
+import { AlbumDetails } from '../models/album.details';
 
 @Component({
   selector: 'app-music-details',
   templateUrl: './music-details.page.html',
   styleUrls: ['./music-details.page.scss'],
 })
-export class MusicDetailsPage implements OnInit {
+export class MusicDetailsPage implements OnInit, OnDestroy {
 
   album$: Observable<Album>;
   
@@ -22,7 +23,10 @@ export class MusicDetailsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new fromAlbum.GetAlbum(Number(this.route.snapshot.paramMap.get('id'))));
+    this.store.dispatch(new MusicActions.GetAlbum(Number(this.route.snapshot.paramMap.get('id'))));
   }
 
+  ngOnDestroy() {
+    this.store.dispatch(new MusicActions.GetAlbumSuccess(new AlbumDetails()));
+  }
 }

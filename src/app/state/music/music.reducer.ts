@@ -1,7 +1,8 @@
-import * as fromAlbum from "./music.actions";
+import * as MusicActions from "./music.actions";
 import { MusicState } from './music.state';
 import { AppState } from '../app.state';
 import { Album } from 'src/app/models/album';
+import { Type } from "src/app/models/type";
 
 export const initialState: MusicState = {
   albums: [],
@@ -10,17 +11,17 @@ export const initialState: MusicState = {
   error: ''
 };
 
-export function reducer(state = initialState, action: fromAlbum.AlbumActions): MusicState {
+export function reducer(state = initialState, action: MusicActions.AlbumActions): MusicState {
   switch (action.type) {
 
-    case fromAlbum.GET_ALL_ALBUMS: {
+    case MusicActions.GET_ALL_ALBUMS: {
       return {
         ...state,
         loading: true
       };
     }
 
-    case fromAlbum.GET_ALL_ALBUMS_SUCCESS: {
+    case MusicActions.GET_ALL_ALBUMS_SUCCESS: {
       return {
         ...state,
         loading: false,
@@ -28,7 +29,7 @@ export function reducer(state = initialState, action: fromAlbum.AlbumActions): M
       };
     }
 
-    case fromAlbum.GET_ALL_ALBUMS_FAIL: {
+    case MusicActions.GET_ALL_ALBUMS_FAIL: {
       return {
         ...state,
         loading: false,
@@ -36,17 +37,22 @@ export function reducer(state = initialState, action: fromAlbum.AlbumActions): M
       };
     }
 
-    case fromAlbum.GET_ALBUM: {
+    case MusicActions.GET_ALBUM: {
       return {
         ...state,
         loading: true
       };
     }
 
-    case fromAlbum.GET_ALBUM_SUCCESS: {
+    case MusicActions.GET_ALBUM_SUCCESS: {
       const album = new Album();
-      album.details = action.payload.results[0];
-      album.songs = action.payload.results.filter(type => type.wrapperType === 'track');
+      if (action.payload.results) {
+        album.details = action.payload.results[0];
+        album.songs = action.payload.results.filter(type => type.wrapperType === 'track');
+      } else {
+        album.details = new Type();
+        album.songs = [];
+      }
       console.log(album);
 
       return {
@@ -56,7 +62,7 @@ export function reducer(state = initialState, action: fromAlbum.AlbumActions): M
       };
     }
 
-    case fromAlbum.GET_ALBUM_FAIL: {
+    case MusicActions.GET_ALBUM_FAIL: {
       return {
         ...state,
         loading: false,
@@ -73,13 +79,6 @@ export function reducer(state = initialState, action: fromAlbum.AlbumActions): M
 export const getAllAlbums = (state: AppState) => { 
   console.log(['state.albums', state]);
   return state.music.albums;
-
-  /* this.jsonp.get(url)
-        .pipe(map(res => <Array<Type>>(res.json())))
-        .subscribe(albums => {
-          this.albums = albums;
-          resolve(this.albums);
-        }); */
 };
 export const getLoading = (state: MusicState) => state.loading;
 export const getError = (state: MusicState) => state.error;

@@ -1,15 +1,15 @@
-<ion-header *ngIf="album$ | async as album; else loading">
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ album.details.artistName }} - {{ album.details.collectionName }}</ion-title>
+    <ion-title *ngIf="album$ | async as album; else loading">{{ album.details.artistName }} - {{ album.details.collectionName }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="album$ | async as album; else loading" padding class="music-details">
+<ion-content padding class="music-details">
 
-  <ion-card>
+  <ion-card *ngIf="album$ | async as album; else loading" >
 
     <img *ngIf="album.details.artworkUrl100" [src]="album.details.artworkUrl100"/>
 
