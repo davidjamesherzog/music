@@ -1,34 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {ITunesService} from '../services/itunes.service';
 
-import {Type} from '../models/type';
+import { Store } from '@ngrx/store';
+import { AppState } from '../state/app.state';
+import * as MusicActions from '../state/music/music.actions';
+import { Observable } from 'rxjs';
+import { Album } from '../models/album';
+import { getAlbum } from '../state/music/music.reducer';
+import { AlbumDetails } from '../models/album.details';
 
 @Component({
   selector: 'app-music-details',
   templateUrl: './music-details.page.html',
   styleUrls: ['./music-details.page.scss'],
 })
-export class MusicDetailsPage implements OnInit {
+export class MusicDetailsPage implements OnInit, OnDestroy {
 
-  info: Type;
-  songs: Type[];
-
-  constructor(private route: ActivatedRoute, private iTunes: ITunesService) {
-    this.info = new Type();
+  album$: Observable<Album>;
+  
+  constructor(private route: ActivatedRoute, private store: Store<AppState>) {
+    this.album$ = this.store.select(getAlbum);
   }
 
   ngOnInit() {
-    
-    let albumSuccess = album => {
-      this.info = album.results[0];
-      this.songs = album.results;
-      this.songs.shift();
-    };
-
-    this.iTunes
-      .getAlbum(Number(this.route.snapshot.paramMap.get('id')))
-      .then(albumSuccess);
+    this.store.dispatch(new MusicActions.GetAlbum(Number(this.route.snapshot.paramMap.get('id'))));
   }
 
+  ngOnDestroy() {
+    this.store.dispatch(new MusicActions.GetAlbumSuccess(new AlbumDetails()));
+  }
 }

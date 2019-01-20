@@ -12,7 +12,7 @@
 <ion-content padding class="music">
   <ion-searchbar (ionInput)="search($event)" placeholder="Search for Musician"></ion-searchbar>
   <ion-list>
-    <ion-item detail *ngFor="let album of albums" (click)="goToDetails($event, album.collectionId)">
+    <ion-item detail *ngFor="let album of (albums$|async)" (click)="goToDetails($event, album.collectionId)">
       <ion-thumbnail slot="start">
         <img [src]="album.artworkUrl60">
       </ion-thumbnail>

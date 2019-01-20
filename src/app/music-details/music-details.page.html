@@ -3,40 +3,40 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ info.artistName }} - {{ info.collectionName }}</ion-title>
+    <ion-title *ngIf="album$ | async as album; else loading">{{ album.details.artistName }} - {{ album.details.collectionName }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding class="music-details">
 
-    <ion-card>
-  
-      <img *ngIf="info.artworkUrl100" [src]="info.artworkUrl100"/>
-  
-      <ion-card-content>
-        <h2 class="card-title">
-          {{ info.artistName }}
-        </h2>
-        <p>
-          Title: {{ info.collectionName}}
-        </p>
-        <p>
-          Year: {{ info.releaseDate | date:"yyyy" }}
-        </p>
-        <p>
-          Genre: {{ info.primaryGenreName}}
-        </p>
-        <p>
-          Tracks: {{ info.trackCount }}
-        </p>
-      </ion-card-content>
-  
-      <ion-list>
-        <ion-item lines="none" *ngFor="let song of songs">
-          <ion-badge slot="start">{{ song.trackNumber }}</ion-badge><p>{{ song.trackName }}</p>
-        </ion-item>
-      </ion-list>
-  
-    </ion-card>
-  
-  </ion-content>
+  <ion-card *ngIf="album$ | async as album; else loading" >
+
+    <img *ngIf="album.details.artworkUrl100" [src]="album.details.artworkUrl100"/>
+
+    <ion-card-content>
+      <h2 class="card-title">
+        {{ album.details.artistName }}
+      </h2>
+      <p>
+        Title: {{ album.details.collectionName}}
+      </p>
+      <p>
+        Year: {{ album.details.releaseDate | date:"yyyy" }}
+      </p>
+      <p>
+        Genre: {{ album.details.primaryGenreName}}
+      </p>
+      <p>
+        Tracks: {{ album.details.trackCount }}
+      </p>
+    </ion-card-content>
+
+    <ion-list>
+      <ion-item lines="none" *ngFor="let song of album.songs">
+        <ion-badge slot="start">{{ song.trackNumber }}</ion-badge><p>{{ song.trackName }}</p>
+      </ion-item>
+    </ion-list>
+
+  </ion-card>
+
+</ion-content>
