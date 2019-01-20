@@ -53,7 +53,6 @@ export function reducer(state = initialState, action: MusicActions.AlbumActions)
         album.details = new Type();
         album.songs = [];
       }
-      console.log(album);
 
       return {
         ...state,
@@ -77,13 +76,11 @@ export function reducer(state = initialState, action: MusicActions.AlbumActions)
 }
 
 export const getAllAlbums = (state: AppState) => { 
-  console.log(['state.albums', state]);
   return state.music.albums;
 };
 export const getLoading = (state: MusicState) => state.loading;
 export const getError = (state: MusicState) => state.error;
 
 export const getAlbum = (state: AppState) => { 
-  console.log(['state.album', state]);
   return state.music.album;
 };

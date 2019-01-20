@@ -21,10 +21,6 @@ export class MusicPage implements OnInit {
     this.albums$ = this.store.select(getAllAlbums);
   }
 
-  ngOnInit() {
-    
-  }
-
   // Navigate to album details page with the id as a parameter
   goToDetails(event, id) {
     this.router.navigate([`/music/${id}`]);
