@@ -14,7 +14,7 @@
   <ion-list>
     <ion-item detail *ngFor="let album of (albums$|async)" (click)="goToDetails($event, album.collectionId)">
       <ion-thumbnail slot="start">
-        <img [src]="album.artworkUrl60">
+        <img [src]="album.artworkUrl60" [lazyLoad]="album.artworkUrl60">
       </ion-thumbnail>
       <ion-label>
         <h3>{{ album.artistName }}</h3>
