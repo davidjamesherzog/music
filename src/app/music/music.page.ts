@@ -16,7 +16,7 @@ import { AlbumList } from '../models/album.list';
 export class MusicPage implements OnInit {
 
   albums$: Observable<Array<Type>>;
-  
+
   constructor(private router: Router, private store: Store<AppState>) {
     this.albums$ = this.store.select(getAllAlbums);
   }
@@ -32,10 +32,10 @@ export class MusicPage implements OnInit {
   // Search for albums
   // Handle input event from search bar
   search(searchTerm) {
-    let term = searchTerm.target.value;
-    
+    const term = searchTerm.target.value;
+
     // We will only perform the search if we have 3 or more characters
-    if (term === undefined || term.trim() == '' || term.trim().length < 3) {
+    if (term === undefined || term.trim() === '' || term.trim().length < 3) {
       this.store.dispatch( new MusicActions.GetAllAlbumsSuccess(new AlbumList()));
     } else {
       this.store.dispatch(new MusicActions.GetAllAlbums(term));
