@@ -15,13 +15,13 @@ export class ITunesService {
   constructor(private httpClient: HttpClient) {}
 
   getAlbums(search: string): Observable<AlbumList> {
-    const url: string = `https://itunes.apple.com/search?term=${search}&entity=album`;
+    const url = `https://itunes.apple.com/search?term=${search}&entity=album`;
 
     return this.httpClient.jsonp<AlbumList>(url, 'callback');
   }
 
   getAlbum(id: number): Observable<AlbumDetails> {
-    const url: string = `https://itunes.apple.com/lookup?id=${id}&entity=song`;
+    const url = `https://itunes.apple.com/lookup?id=${id}&entity=song`;
 
     return this.httpClient.jsonp<AlbumDetails>(url, 'callback');
   }
