@@ -1,20 +1,6 @@
 import { AlbumDetails } from 'src/app/models/album.details';
 import { AlbumList } from 'src/app/models/album.list';
 import * as MusicActions from './music.actions';
-/* import {
-  GetAllAlbums,
-  GetAllAlbumsSuccess,
-  GetAllAlbumsFail,
-  GetAlbum,
-  GetAlbumSuccess,
-  GetAlbumFail,
-  GET_ALL_ALBUMS,
-  GET_ALL_ALBUMS_SUCCESS,
-  GET_ALL_ALBUMS_FAIL,
-  GET_ALBUM,
-  GET_ALBUM_SUCCESS,
-  GET_ALBUM_FAIL
-} from './music.actions'; */
 
 describe('Music actions', () => {
 
@@ -95,6 +81,5 @@ describe('Music actions', () => {
     });
 
   });
-
 
 });
