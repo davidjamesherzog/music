@@ -72,22 +72,40 @@ describe('Music Reducer', () => {
     });
   });
 
-  // TODO - Fix this test
-  /* describe('GET_ALBUM_SUCCESS action', () => {
+  describe('GET_ALBUM_SUCCESS action', () => {
     it('should return success state', () => {
       const { initialState } = musicReducer;
       const previousState = { ...initialState, loading: true };
       const albumDetails: AlbumDetails = new AlbumDetails();
-      albumDetails.results = [new Type(), new Type()];
+      const type1: Type = new Type();
+      type1.wrapperType = 'album';
+      const type2: Type = new Type();
+      type2.wrapperType = 'track';
+      albumDetails.results = [type1, type2];
       const action = new musicActions.GetAlbumSuccess(albumDetails);
       const state = musicReducer.reducer(previousState, action);
 
       expect(state.loading).toBeFalsy();
-      expect(state.album.songs).toEqual([]);
-      expect(state.albums).toEqual(albumDetails.results);
+      expect(state.album.details.wrapperType).toEqual('album');
+      expect(state.album.songs.length).toEqual(1);
+      expect(state.albums).toEqual([]);
       expect(state.error).toEqual('');
     });
-  }); */
+
+    it('should return empty success state', () => {
+      const { initialState } = musicReducer;
+      const previousState = { ...initialState, loading: true };
+      const albumDetails: AlbumDetails = new AlbumDetails();
+      const action = new musicActions.GetAlbumSuccess(albumDetails);
+      const state = musicReducer.reducer(previousState, action);
+
+      expect(state.loading).toBeFalsy();
+      expect(state.album.details.wrapperType).toBeUndefined();
+      expect(state.album.songs).toEqual([]);
+      expect(state.albums).toEqual([]);
+      expect(state.error).toEqual('');
+    });
+  });
 
   describe('GET_ALBUM_FAIL action', () => {
     it('should return the previous state', () => {
