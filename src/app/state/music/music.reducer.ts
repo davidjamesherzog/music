@@ -1,8 +1,8 @@
-import * as MusicActions from "./music.actions";
+import * as MusicActions from './music.actions';
 import { MusicState } from './music.state';
 import { AppState } from '../app.state';
 import { Album } from 'src/app/models/album';
-import { Type } from "src/app/models/type";
+import { Type } from 'src/app/models/type';
 
 export const initialState: MusicState = {
   albums: [],
@@ -75,12 +75,12 @@ export function reducer(state = initialState, action: MusicActions.AlbumActions)
   }
 }
 
-export const getAllAlbums = (state: AppState) => { 
+export const getAllAlbums = (state: AppState) => {
   return state.music.albums;
 };
 export const getLoading = (state: MusicState) => state.loading;
 export const getError = (state: MusicState) => state.error;
 
-export const getAlbum = (state: AppState) => { 
+export const getAlbum = (state: AppState) => {
   return state.music.album;
 };
